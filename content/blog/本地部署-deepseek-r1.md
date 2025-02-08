@@ -4,6 +4,7 @@ date: 2025-02-08T06:48:56.858Z
 ---
 
 
+
 以Mac系统为例，需完成以下内容
 1. 本地使用 ollama 运行 deepseek-r1 以支持本地 API 调用功能
 2. 本地使用 open-webui 配置并调用 ollama 以支持可视化界面
@@ -47,3 +48,9 @@ open-webui QuickStart：https://docs.openwebui.com/getting-started/quick-start/
 > 对于 Mac / Windows 环境，由于 Docker 使用了虚拟化技术，并不是直接在宿主机上运行，因此如果要打通 docker 容器和宿主机的 ollama 服务，则只能使用 host.docker.internal 域名，此域名为 docker 单独为虚拟化环境下的特殊 DNS 名称，指向宿主机的 IP 地址，用于让容器访问宿主机的服务
 > 对于 Linux 环境，由于 Docker 就在宿主机上运行，因此无需且无法使用 host.docker.internal 域名，因此启动命令需要变更为 `docker run -d -p 3000:8080 --network=host -v open-webui:/app/backend/data -e OLLAMA_BASE_URL=http://127.0.0.1:11434 --name open-webui --restart always ghcr.io/open-webui/open-webui:main` 即增加了` --network=host` 并将 `host.docker.internal` 替换为了 `127.0.0.1`
 ## 2.3 open-webui 使用
+docker 启动 open-webui 后等几分钟后进入 http://localhost:3000
+首次进入需要设置管理员账号密码，也可使用单用户模式跳过，详情见 https://docs.openwebui.com/getting-started/quick-start/#single-user-mode-disabling-login
+进入后左上角即可选择 ollama 下载的所有模型
+右上角头像 - 设置 - 管理员设置 - 外部链接 - 管理 ollama API 连接，检查配置的域名是否为 http://host.docker.internal:11434
+
+到此即可正常使用
